@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Harshie ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff758f;
+            --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+
+        /* Prevent scrolling and zooming on mobile */
+        body, html {
+            margin: 0; padding: 0; 
+            width: 100%; height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        #app-container {
+            width: 85%; max-width: 350px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 30px 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            min-height: 450px;
+            display: flex; flex-direction: column; justify-content: center;
+            position: relative;
+        }
+
+        .page { display: none; animation: fadeIn 0.6s ease-out; }
+        .page.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .handwritten {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem; color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background: var(--primary); color: white;
+            border: none; padding: 16px 30px; border-radius: 50px;
+            font-size: 1.1rem; font-weight: 600; cursor: pointer;
+            margin-top: 15px; width: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Loading Bar */
+        .loader-bar {
+            width: 100%; height: 8px; background: #eee;
+            border-radius: 10px; margin: 20px 0; overflow: hidden;
+        }
+        .progress {
+            width: 0%; height: 100%; background: var(--primary);
+            transition: width 3s linear;
+        }
+
+        /* Story Bubbles */
+        .bubble {
+            background: #fff0f3; padding: 12px; border-radius: 15px;
+            margin: 8px 0; font-size: 0.9rem; border-left: 4px solid var(--primary);
+            text-align: left;
+        }
+
+        /* The Runaway No Button for Mobile */
+        #noBtn {
+            background: #eee; color: #888; width: auto; 
+            padding: 10px 25px; display: inline-block;
+            transition: none; /* Instant jump on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app-container">
+        
+        <div class="page active" id="p1">
+            <h1 class="handwritten">Hey Harshie!</h1>
+            <p>I know it's Valentine's Day, and I wanted to make you something unique.</p>
+            <button class="btn" onclick="startLoading()">Open My Surprise 🎁</button>
+        </div>
+
+        <div class="page" id="p2">
+            <h3>Finding "Harshie"...</h3>
+            <div class="loader-bar"><div class="progress" id="bar"></div></div>
+            <p id="load-status" style="font-size: 0.8rem; color: #888;">Searching Instagram DMs...</p>
+        </div>
+
+        <div class="page" id="p3">
+            <h2 class="handwritten">Remember?</h2>
+            <div class="bubble">🎮 We started as just two people in a game.</div>
+            <div class="bubble">📸 Then we moved to IG and started talking every day.</div>
+            <button class="btn" onclick="showPage(4)">Next Memory ➡️</button>
+        </div>
+
+        <div class="page" id="p4">
+            <h2 class="handwritten">To be honest...</h2>
+            <p>I never expected a game to lead me to someone as amazing as you.</p>
+            <p>You're my favorite person to talk to, Harshie.</p>
+            <button class="btn" onclick="showPage(5)">One last thing... ❤️</button>
+        </div>
+
+        <div class="page" id="p5">
+            <h2 class="handwritten">So, Harshie...</h2>
+            <h3 style="margin-bottom: 30px;">Will you be my girlfriend?</h3>
+            
+            <button class="btn" onclick="showPage(6)">YES! ❤️</button>
+            <button id="noBtn" class="btn" ontouchstart="moveButton(this)" onclick="moveButton(this)">No</button>
+        </div>
+
+        <div class="page" id="p6">
+            <h1 class="handwritten" style="font-size: 4rem;">YAY! ❤️</h1>
+            <p>You've made <b>Me</b> the luckiest guy tonight.</p>
+            <div style="font-size: 4rem;">👩‍❤️‍👨</div>
+        </div>
+
+    </div>
+
+    <script>
+        function showPage(num) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('p' + num).classList.add('active');
+        }
+
+        function startLoading() {
+            showPage(2);
+            document.getElementById('bar').style.width = '100%';
+            setTimeout(() => {
+                document.getElementById('load-status').innerText = "Match Found! ❤️";
+                setTimeout(() => showPage(3), 1000);
+            }, 3000);
+        }
+
+        // Mobile Runaway Logic: Moves when touched or clicked
+        function moveButton(btn) {
+            // Calculate random position within the viewport
+            // Subtracting some margin to keep it from going off-screen
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+    </script>
+</body>
+</html>
